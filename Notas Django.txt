@@ -1,0 +1,391 @@
+--------------------- instalación -------------------------
+
+instalar python
+
+instalar el entrono virtual:
+
+	cd Desktop/djangoproject
+	a veces se debe poner es user, onedrive y Escritorio
+
+crear el venv
+
+	pip install virtualenv
+	instalar el entorno virtual
+
+	virtualenv venv
+	para crear una carpeta
+	
+	f1 + selct inerpreter + venv:venv direccion
+	para activar el venv
+
+instalar django
+
+	pip install django
+
+--------------------- Comandos de terminal ------------------------
+
+Django-admin --version
+para ver la version de Django 
+
+.\venv\Scripts\activate
+activa el entorno virtual
+
+
+Django-admin startproject nombre
+para iniciar un nuevo proyecto 
+
+Django-admin startproject nombre .
+para crear una carpeta y pones los archivos en esa y no en otra con el mismo nombre
+
+python manage.py runserver
+para ejecutar el servidor en el puerto que se asigne 
+
+python manage.py runserver 3000
+para ejecutar el servidor en el puerto 3000
+
+python manage.py startapp nombre
+es para crear una aplicación dentro de el proyecto
+
+python manage.py makemigrations
+para preparar los cambios a la base de datos
+
+python manage.py makemigrations nombre 
+para hacerlo solamente en la aplicación nombre
+
+python manage.py migrate 
+para migrar y actualizar la nueva estructura de la base de datos
+
+python manage.py migrate nombre
+para hacerlo solamente en la aplicación nombre
+
+python manage.py shell
+para acceder o importar los modelos y clases y conectar la base de datos 
+
+exit() o ctrl + C
+para salir de la terminal de python
+
+get_object_or_404
+sirve para que si hay un error o un objeto que no se encontró no se caiga la pagina, sino que mande un 404
+from django.shortcuts import get_object_or_404 --> import
+task = get_object_or_404(Tasks, id=id) --> use
+
+{{}}
+para llamar a un diccionario desde el html
+---------------------------------------------------- Elementos de Django -----------------------------------------------------------------
+
+venv
+esta relacionada con el entorno virtual
+
+manage.py 
+nos ayuda a ejecutar comandos administrativos(ej: servidor)
+	manage.py --help dará códigos básicos que pueden ayudar
+
+db.sqlite3 
+contiene la base de datos de nuestra aplicación
+
+nombre_proyecto (mysite)
+contiene el código fuente de nuestra aplicación 
+
+	__pycache__.py
+	sirve para guardar código que ya compilo python, esto para que ejecute mas rápido (esta mas relacionado con el funcionamiento de
+    python mas que con Django)
+
+	__init__.py
+	solo sirve para poder decirle a python que la carpeta es un modulo de python
+
+	settings.py 
+	permite configurar todo el proyecto 
+	
+		ALLOWED_HOSTS[]
+		le va a permitir al servidor web decir que direcciones tiene permitido ejecutar
+
+		DEBUG = True
+		nos va a permitir decirle a nuestra aplicación si estamos en modo desarrollo o producción
+
+		nos permite obtener mas información cuando estemos desarrollando pero cuando estemos en producción lo tenemos que cambiar a
+        false para decirle que ya no estamos desarrollando y que ya no nos de tanta información porque esta siendo accedida desde 
+        distintos lugares por distintos usuarios
+
+		SECRET_KEY 
+		sirve para mejorar la encriptación de la información de los usuarios o poder generar datos que puede compartir entre el navegador
+        y el servidor
+
+		BASE_DIR
+		nos sirve para indicar donde están los directorios del proyecto
+
+		INSTALLED_APPS
+		nos permite dividir el proyecto en distintas aplicaciones
+
+		MIDDLEWARE
+		nos permite decirle a Django si va a procesar algún tipo de datos de alguna forma 
+
+		TEMPLATES, WSGI_APPLICATION
+		sirven mas cuando estamos en modo de producción y vamos a tener que servirlo con otro tipo de módulos extras
+	
+		DATABASE 
+		nos dice a que bases de datos estamos conectados ademas nos dice conde esta la base de datos
+
+		AUTH_PASSWORD_VALIDATORS
+		es una configuración relacionada a como se validan las contraseñas a la hora en la que se validan contraseñas al momento en el
+        que autentiquen usuarios
+		
+		y configuraciones genéricas como por ejemplo el lenguaje por defecto o el horario
+		
+		STATIC_URL
+		es para decirle donde están los archivos estáticos como html, css y js
+
+	urls.py
+	se pueden escribir las urls que los usuarios pueden visitar
+
+	asgi.py, wsgi.py
+	son configuraciones para servir contenido en producción
+
+---------------------- Instrucciones y Códigos --------------------
+
+
+para conectar los paths
+
+	views.py
+
+	from django.http import HttpResponse
+
+	def hello(request):
+		return HttpResponse('Hello World')
+
+	define una función que usa como parámetro request que es uan especie de petición
+	devuelve Hello World por medio de una respuesta http
+
+	urls.py
+
+	from django.urls import path
+	from . import views
+
+	path('',.views.hello)
+
+	// importa los path para poder usarlos
+	// importa todo de views con ello las funciones
+	// llama a la función hello de views
+
+	urls.py (main_project) 
+
+	from django.contrib import admin
+	from django.urls import path, include
+
+	path('admin/', admin.site.urls),
+	path('',include('myapp.urls'))
+
+	// importa el admin que es un algo como de permisos de administrador (en la url me lleva a un logion)
+	// importa de urls, myapp los path y una función include que permitirá incluir las funciones entre ella name
+	// crea dos path uno para el login de admin y otro para llamar a myapp.urls el cual contendrá la función
+
+
+para interactuar con la datos a la base de datos
+
+	Crear un nuevo Project
+
+		python manage.py shell
+
+		from myapp.models import Project, Tasks
+
+		p = Project(name="aplicación web")
+		p.save()
+
+		// usara shell para acceder a el editor de python
+		// se llama a Project y se le agrega el texto de name y todo esto se guarda en p
+		// recordemos que en Project creamos una columna que se llama no nombre y es ahi donde asignamos el texto
+		// se guarda p y esto se aplica a la base de datos 
+
+		para consultar el Project
+
+			python manage.py shell
+			Project.objects.all()
+			Project.objects.get(id=1)
+			Project.objects.get(name="aplicación web")
+
+			// se accede a el editor de python 
+			// en la linea en al que se usa all() se llama a todos los objetos dentro de Project
+			// en las lineas en las que se usa get() se llama a el elementos que cumpla la función que se pasa como parámetros
+			// en el caso de get(id=) es el que sea igual al id y get(name=) al que sea igual al name
+			// el resultado de estas query sera algo como <QuerySet [<Project: Project object (1)>]
+
+	Crear --> project = Project(name="...")
+			  project.save()
+	Consultar --> project = Project.object.get()
+
+	Para crear Tasks 
+
+			// para las tareas como se tiene una relación entra las tareas y un proyecto debo tener primero el campo del proyecto y de ahí 
+			// se puede crear la tareas
+			
+			from myapp.models import Project, Tasks
+			p =  Project.objects.get(id=1)
+			p.task_set.create(title="descargar IDE")
+
+			// se importa el proyecto de myapp.models
+			// se llama a el proyecto cuyo id sea 1 y se guarda en p
+			// se crea una nueva tarea en el proyecto que esta guardado en p con los parámetros que se le ingresen 
+			
+			Para consultar la Task
+
+				p.task_set.all()
+				// devuelve todas las tareas de elE proyecto que esta almacenado en p (en este caso Project)
+
+				Project.objects.filter(name__startswith="aplicación") 
+				// filtra el proyecto y busca los objetos los cuales su nombre empiece con "aplicación", si lo encuentra el QuerySet
+				//<QuerySet [<Project: Project object (1)>]>
+				// pero si no es asi mostrara un QuerySet vació 
+				//<QuerySet []>
+
+		Crear --> p.task_set.create(title="...")
+		Consultar --> task = Tasks.object.get(id=id)
+		Consultar --> task = (get_object_or_404, id=id)
+
+	para ingresar valores por la url
+
+		urls.py (myapp)
+
+			path('Hello/<int:id>',views.hello),
+			// se esta diciendo que en la url se espera un valor el cual es un int y se guarda en la variable id 'hello/<int:id>'
+
+		views.py
+
+			def Hello(request, id)
+				print(type(id))
+				result(id + 10)
+				return HttpResponse("<h2>Hello %s<h2>", % result)
+			
+			// en la función Hello se llama un parámetro extra que es el id el cual esta extrayendo de la url
+			// este valor se usa para mostrarlo mediante templates ("... s%"; % var) en la pagina
+			// ademas con print(type(var)) se puede mostrar que tipo de valor contiene la variable
+			// y se uso la variable result para hacer procesos con el valor de id, en este caso una suma
+
+
+	para conectar la pagina por la url a la base de datos
+
+		models.py
+
+			from django.db import models
+
+			class Project(models.Model):
+				name = models.CharField(max_length=200)
+
+			class Tasks(models.Model):
+				title = models.CharField(max_length=200)
+				description = models.TextField()
+				project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+			// se importan los models de django.db
+			// se crean las clases, en este caso Project y Task las cuales reciben como parámetros (modes.Model)
+			// Model son modelos que trae django predeterminados que permiten la interacción con la base de datos
+		
+			// la clase Project recibe Model como parámetros
+			// esta tiene tres objects los cuales son title, description y project, todos estos consultan a Model
+			// luego usan CharField(max_length=200) para decir el tamaño que tendrá cada campo siendo este de 200
+			// ForeignKey(Project, on_delete=models.CASCADE) permite conectar o vincular ese object con la clase Project
+			// ademas esta función on_delete=models.CASCADE permite que si se borra Project se borren los objetos 
+			// relacionados con este
+
+panel de admin
+
+	Crear usuario admin
+
+		python manage.py createsuperuser
+
+		Username: ...
+		Email: ...
+		Password: ...
+
+		python manage.py runserver
+
+		// se llama a crear super usuario
+		// se ingresa el Username, Email y Password
+		// se vuelve a correr el servidor
+
+	añadir project a el panel de admin
+
+		admin.py
+
+			from django.contrib import admin
+			from .models import Project, Tasks
+
+			admin.site.register(Project)
+
+			// llama a admin por defecto
+			// llama a los models y de ahi los dos objects Project y Tasks
+			// accede a el sitio admin y allí registra (Project)
+			// ahora en el sitio admin aparece Project podemos crear nuevos projects desde allí	
+
+	para que muestre en vez de el QuerySet muestre el nombre del Project
+
+		models.py
+
+			class Project(models.Model):
+
+				def __str__(self):
+							return self.name
+							return self.name + " - " + self.Project.name
+
+		// se usa una instancia, self representa a la clase activa en este caso Project por lo que en return self.name
+		// esta diciendo que devuelva el nombre de el self que es Project
+		// ademas se pueden concatenar los valores para que me diga que a que project pertenece y com este también tiene
+		// valores se apunta a la característica que quiero mostrar de Project que en este caso es name
+
+templates (Crear la carpeta en myapp)
+
+	// es una especie de conexión a los archivos html de la pagina
+	
+	index.html(crear)
+		//agregar lo que se quiere mostrar 
+
+	models.py 
+		from django.shortcuts import render
+
+		def index(request):
+    	return render(request, "Index.html")
+
+		// se devuelve la pagina index.html usando un render qeu es el que permite tomar el archivo html y request el cual es una petición 
+
+	Como pasar datos a el html
+
+		views.py
+
+			def index(request):
+				title = "Django Course!!"
+				return render(request, "Index.html", {
+					'title' : title
+				})
+
+			// se crea una variable con un str y este valor se pasa por medio de un diccionario {} como otro parámetro mas
+			// dentro de este diccionario estará una variable que a la cual se le asigna el valor de title (Django Course!!)
+			// aquí también podemos en vez de pasar variables creadas por nosotros, valores de la base de datos 
+
+		templates
+
+			index.html
+
+				<h1>{{title}}</h1>
+
+				// esto obtendrá el valor que le pasamos en views y lo mostrará como html
+
+
+		como agregar back al front
+
+			views.py
+
+				def projects(request):
+					projects = Project.objects.all()
+
+					return render(request, "projects.html", {
+						'project': projects
+					})
+
+					// se llaman todos los objetos de Project y se envían a la pagina projects.html como parámetro dentro de un diccionario
+
+			projects.html
+
+				{% for projects in projects %}
+
+					<h1>projects.name</h1>
+
+				{% endfor %}
+			
