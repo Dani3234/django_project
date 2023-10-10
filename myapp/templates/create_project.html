@@ -4,4 +4,10 @@
 
 <h1>Create Project</h1>
 
+<form action="POST">
+    {% csrf_token %}
+    {{Project.as_p}}
+    <button>Save</button>
+</form>
+
 {% endblock %}
