@@ -13,17 +13,20 @@ def about(request):
     })
 
 def index(request):
-    return render(request, 'index.html')
+    title = "Django Project"
+    return render(request, 'index.html',{
+        'title':title
+    })
 
 def projects(request):
     projects = Project.objects.all()
-    return render(request, 'Projects.html',{
+    return render(request, 'projects/projects.html',{
         'projects':projects
     })
 
 def tasks(request):
     tasks = Task.objects.all()
-    return render(request, 'tasks.html', {
+    return render(request, 'tasks/tasks.html', {
         'tasks': tasks
     })
 
@@ -31,21 +34,21 @@ def create_task(request):
 
     if request.method == 'GET':
 
-        return render(request, 'create_task.html', {
+        return render(request, 'tasks/create_task.html', {
             'form': CreateNewTask()
         })
     
     else:
-        Task.objects.create(title = request.POST['title'], description = request.POST['description'], Projectkey = 2)
-        redirect('/tasks/')
+        Task.objects.create(title = request.POST['title'], description = request.POST['description'], project_id = 2)
+        return redirect('tasks')
 
 def create_project(request):
     if request.method == 'GET':
 
-        return render(request, 'create_project.html',{
-            'Project': CreateNewProject()
+        return render(request, 'projects/create_project.html',{
+            'form': CreateNewProject()
         })
     
     else:
         Project.objects.create(name = request.POST['name'])
-        redirect('/projects/')
+        return redirect('projects')

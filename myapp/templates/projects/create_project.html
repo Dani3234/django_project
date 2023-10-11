@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>Create Task</h1>
+<h1>Create Project</h1>
 
-<form action="POST">
+<form method="POST">
     {% csrf_token %}
     {{form.as_p}}
     <button>Save</button>
