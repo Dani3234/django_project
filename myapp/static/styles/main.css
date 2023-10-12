@@ -4,23 +4,73 @@ body {
 }
 
 .navbar {
-    display: flex;
+    position: relative;
     background: #404040;
-    /* justify-content: space-between; */
-    /* padding: 0 100px 20px 100px; */
-    /* align-items: center; */
-}
-
-.navbar ul {
-    /* display: flex; */
-    /* justify-content: space-between; */
-}
-
-.navbar ul li a {
-    color: white;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .navbar ul li {
-    /* list-style: none;
-    text-decoration: none; */
+    background: #737272;
+    list-style: none;
+    border-radius: 5px;
 }
+
+.navbar ul li a {
+    height: 50px;
+    width: 130px;
+    color: white;
+    text-decoration: none;
+    font-size: large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+/* .navbar {
+    background: rgb(13, 35, 124);
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    padding: 5px 200px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar div {
+    display: flex;
+
+}
+
+.navbar div a {
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: xx-large
+}
+
+.navbar div a:hover {
+    color: rgb(214, 207, 240);
+    font-size: 33px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.card {
+    background: whitesmoke;
+}
+
+.input {
+    padding: 10px;
+    background: lavender;
+    display: block;
+} */
