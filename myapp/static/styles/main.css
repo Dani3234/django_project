@@ -1,5 +1,5 @@
 body {
-    background: #202020;
+    background: #27282c;
     color: whitesmoke
 }
 
@@ -14,7 +14,7 @@ body {
 }
 
 .navbar ul li {
-    background: #737272;
+    background: #696c77;
     list-style: none;
     border-radius: 5px;
 }
@@ -28,49 +28,30 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 5px;
 }
 
-
-
-
-/* .navbar {
-    background: rgb(13, 35, 124);
-    display: flex;
-    justify-content: center;
-    height: 50px;
-    padding: 5px 200px;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar div {
-    display: flex;
-
-}
-
-.navbar div a {
-    color: whitesmoke;
-    text-decoration: none;
-    font-size: xx-large
-}
-
-.navbar div a:hover {
-    color: rgb(214, 207, 240);
-    font-size: 33px;
+.navbar ul li a:hover {
+    background: #646471;
+    color: rgb(229, 228, 239);
+    border-radius: 5px;
 }
 
 .container {
     max-width: 1200px;
     margin: auto;
-    padding: 20px 0;
+    padding: 20px 10px;
 }
 
 .card {
     background: whitesmoke;
+    padding: 10px;
+    margin:2px;
+    color: black;
 }
 
 .input {
     padding: 10px;
     background: lavender;
     display: block;
-} */
+}
